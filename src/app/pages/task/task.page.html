@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar style="background: #251D73;">
+    <ion-buttons slot="start" class="menuBtn">
+      <ion-back-button color="light" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Liste Des Tâches</ion-title> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-segment> 
+    <ion-segment-button value="liste">
+      <ion-label>Listes</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="EnCours">
+      <ion-label>En Cours</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="terminer">
+      <ion-label>Terminer</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+
+  <div *ngFor="let tache of taches">
+    <div class="upperBox">
+      <div class="image">
+        <img src="../../../assets/nature.jpg" alt="">
+      </div>
+
+      <div class="title">
+        <h4>{{ tache.title }}</h4>
+      </div>
+
+      <div class="menu"> 
+        <h3><ion-icon name="ellipsis-vertical-outline" (click)="presentPopover($event)"></ion-icon></h3>
+      </div>
+
+      <div class="taskId">
+        <p>{{ tache.description }}</p>
+      </div> 
+      
+      <div class="status"> 
+        <p [ngStyle]="{
+          'color': tache.completed ? 'green' : 'red',
+          'background': tache.completed ? '#e4f4eb' : '#f7d0c7'
+        }">
+          {{ tache.completed ? 'Terminé' : 'En cours' }}
+        </p>
+      </div> 
+    </div>
+  </div>
+</ion-content>
