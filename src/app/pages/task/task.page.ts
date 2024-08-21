@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonBadge, IonSegment, IonLabel, IonSegmentButton, IonButton, AlertController } from '@ionic/angular/standalone'; 
 import { Tache } from 'src/app/model/tache';
-import { TaskService } from 'src/app/services/task.service'; 
-import { FormAddPage } from '../form/form-add/form-add.page';
+import { TaskService } from 'src/app/services/task.service';  
 import { PopoverPage } from '../popover/popover.page';
 import { NavController } from '@ionic/angular';
 
