@@ -1,0 +1,77 @@
+ion-content {
+  --background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+
+  .img {
+    background: #000;
+    overflow: hidden;
+    height: 250px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+
+    .bottom {
+      bottom: 20px;
+      left: 20px;
+      position: absolute; 
+      z-index: 999;
+      height: 100px;
+      color: #fff;
+
+      .title {
+        justify-self: start;
+        align-self: start;
+
+        h4 {
+          margin-top: -3px;
+          font-size: 24px;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        p { 
+          font-size: 16px;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+
+    #myimg {
+      width: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      filter: brightness(70%);
+    }
+  }
+
+  .btnStart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 250px);
+    a{
+      text-decoration: none;
+    }
+    .btn {
+      font-size: 18px;
+      background: linear-gradient(135deg, #251D73, #453FC0);
+      padding: 12px 24px;
+      text-align: center;
+      color: #fff; 
+      border-radius: 30px;
+      transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        background-color: #453FC0;
+        transform: scale(1.1);
+        box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      ion-icon {
+        margin-left: 5px;
+        font-size: 20px;
+      }
+    }
+  }
+}

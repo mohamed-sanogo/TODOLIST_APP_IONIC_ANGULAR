@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="menuBtn">
+      <ion-back-button color="light" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Vos Tâches</ion-title>
+
+    <ion-buttons slot="end" class="btnAdd">
+      <ion-button color="light" (click)="navigateToFormAddPage()">
+         Ajouter
+        <ion-icon name="add-circle-outline" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content >
+  <ion-segment [(ngModel)]="filter" (ionChange)="onFilterChange($event)"> 
+
+    <ion-segment-button value="liste">
+      <ion-label>Listes</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="EnCours" >
+      <ion-label>En Cours</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="terminer">
+      <ion-label>Terminer</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+
+  <div *ngFor="let tache of taches">
+    <div class="upperBox">
+      <div class="image">
+        <img src="../../../assets/dolist.png" alt="">
+      </div>
+
+      <div class="title">
+        <h4>{{ tache.title }}</h4>
+      </div>
+
+      <div class="menu"> 
+        <div *ngIf="!tache.completed">
+          <h3><ion-icon name="ellipsis-vertical-outline" (click)="presentPopover($event, tache)"></ion-icon></h3>
+        </div>
+        <div *ngIf="tache.completed">
+          <h3><ion-icon name="trash-outline" color="danger" (click)="confirmDelete(tache)"></ion-icon></h3>
+        </div>
+      </div>
+
+      <div class="taskDesc"> <p> {{ tache.description }} </p></div> 
+      
+      <div class="status"> <p [ngStyle]="{'color': tache.completed ? 'green' : 'red','background': tache.completed ? '#e4f4eb' : '#f7d0c7'}">
+          {{ tache.completed ? 'Terminé' : 'En cours' }}
+        </p>
+      </div> 
+    </div>
+  </div>
+</ion-content>
