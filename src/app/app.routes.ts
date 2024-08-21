@@ -17,7 +17,12 @@ export const routes: Routes = [
   {
     path: 'form-add',
     loadComponent: () => import('./pages/form/form-add/form-add.page').then( m => m.FormAddPage)
-  },   {
+  },
+  {
+    path: 'form-add/:id',
+    loadComponent: () => import('./pages/form/form-add/form-add.page').then( m => m.FormAddPage)
+  },
+  {
     path: 'popover',
     loadComponent: () => import('./pages/popover/popover.page').then( m => m.PopoverPage)
   }

@@ -15,79 +15,95 @@ ion-header {
           --padding-end: 10px;
           display: flex;
           align-items: center; 
+          border: 2px solid #ccc;
+          border-radius: 20px;
   
           ion-icon {
             margin-left: 5px;
           }
-          border: 2px solid #ccc;
-           border-radius: 20px;
         }
       }
     }
   }
   
-
 ion-content{
     ion-segment{
         --background: #f8f8f8;
         ion-segment-button{
             --indicator-color: #251D73;
-            --color-checked: #251D73;
+            --color-checked: #ccc;
             font-weight: bold;
         }
     }
     #date{
         padding-left: 20px;
-    }
-    .upperBox{
+    } 
+    
+    .upperBox {
         background-color: #fff;
         margin-top: 10px;
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-        height: auto;
         display: grid;
         grid-template-columns: 40% 35% 15% 10%;
-        grid-template-rows: 15% 35% 35% 15%;
-        gap: 5px 5px;
-        grid-template-areas: "image title title menu" "image taskId taskId taskId" "image status status status";
-        .image{
-            grid-area: image;
-            img{
-                padding: 10px;
-                border-radius: 5px;
-                height: auto;
-                width: 100%;
-            }
-        }
-        .title{
-            grid-area: title;
-            color: #181717;
-            font-weight: bold;
-            h3{
-                font-size: 16px;
-            }
-        }
-        .menu{
-            grid-area: menu;
-            margin-right: 1Opx;
-            justify-self: center;
-        }
-        .taskId{
-            grid-area: taskId;
-            p{
-                color: gray;
-            }
-        } 
-        .status{
-            grid-area: status;
-            p{
-                margin-right: 20px;
-                margin-top: -8px;
-                font-size: 12px;
-                background: #e4f4eb;
-                padding: 5px;
-                text-align: center;
-                color: green;
-            }
-        }  
+        grid-template-rows: auto auto auto auto;
+        gap: 5px;
+        grid-template-areas: 
+            "image title title menu"
+            "image taskDesc taskDesc taskDesc"
+            "image status status status";
+        padding: 10px 10px;
     }
+    
+    .image {
+        grid-area: image;
+        img {
+            padding: 0px 10px;
+            border-radius: 5px;
+            height: auto;
+            width: 85%;
+            object-fit: cover;
+        }
+    }
+    
+    .title {
+        grid-area: title;
+        color: #181717;
+        font-weight: bold;
+        h3 {
+            font-size: 16px;
+            margin: 0;
+        }
+    }
+    
+    .menu {
+        grid-area: menu;
+        margin-right: 10px;
+        justify-self: center;
+    }
+    
+    .taskDesc {
+        grid-area: taskDesc;
+        p {
+            padding: 2px;
+            color: gray;
+            margin: 0;
+        }
+    }
+    
+    .status {
+        grid-area: status;
+        p {
+            margin: 0;
+            font-size: 12px;
+            background: #e4f4eb;
+            padding: 5px;
+            text-align: center;
+            color: green;
+            padding: 10px;
+            width: 80px;
+            margin-left: 90px;
+            border-radius: 5px;
+        }
+    }
+    
 }

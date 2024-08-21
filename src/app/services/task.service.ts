@@ -1,6 +1,6 @@
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Tache } from '../model/tache';
 
 @Injectable({
@@ -23,9 +23,9 @@ export class TaskService {
   createTache(task: Tache): Observable<Tache> {
     return this.http.post<Tache>(this.mesAPI, task);
   }
-  
-  updateTache(id: number, task: Tache): Observable<Tache> {
-    return this.http.put<Tache>(`${this.mesAPI}/${id}`, task);
+
+  updateTache(tache: Tache): Observable<Tache> {
+    return this.http.put<Tache>(`${this.mesAPI}/${tache.id}`, tache);
   }
   
   tacheCompleted(id: number): Observable<Tache> {
@@ -34,5 +34,17 @@ export class TaskService {
 
   deleteTache(id: number): Observable<void> {
     return this.http.delete<void>(`${this.mesAPI}/${id}`);
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Une erreur est survenue.';
+
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Erreur: ${error.error.message}`;
+    } else {
+      errorMessage = `Erreur ${error.status}: ${error.error}`;
+    }
+
+    return throwError(errorMessage);
   }
 }

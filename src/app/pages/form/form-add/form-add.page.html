@@ -1,15 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ isEditMode ? 'Modifier Tâche' : 'Ajouter Tâche' }}</ion-title>
-    <ion-buttons slot="end">
-      <!-- <ion-button (click)="dismiss()">Fermer</ion-button> -->
+    <ion-buttons slot="start" class="menuBtn">
+      <ion-back-button color="light" defaultHref="task"></ion-back-button>
     </ion-buttons>
+    <ion-title>{{ isEditMode ? 'Modifier Tâche' : 'Ajouter Tâche' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
   
   <form [formGroup]="formTask" (ngSubmit)="onSubmit()">
     <ion-item>
@@ -21,7 +25,8 @@
       <ion-label position="floating">Description</ion-label>
       <ion-input formControlName="description"></ion-input>
     </ion-item>
-
+    
     <ion-button expand="full" type="submit" [disabled]="!formTask.valid">{{ isEditMode ? 'Modifier' : 'Ajouter' }}</ion-button>
+
   </form>
 </ion-content>
