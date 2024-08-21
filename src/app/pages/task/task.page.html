@@ -1,11 +1,21 @@
 <ion-header>
-  <ion-toolbar style="background: #251D73;">
+  <ion-toolbar>
     <ion-buttons slot="start" class="menuBtn">
       <ion-back-button color="light" defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Liste Des Tâches</ion-title> 
+
+    <ion-title>Vos Tâches</ion-title>
+
+    <ion-buttons slot="end" class="btnAdd">
+      <ion-button color="light" (click)="navigateToFormAddPage()">
+        Nouvelle Tâche
+        <ion-icon name="add-circle-outline" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content >
   <ion-segment> 

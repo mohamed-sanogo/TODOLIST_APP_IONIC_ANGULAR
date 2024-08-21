@@ -1,56 +1,75 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonToggle, IonIcon, IonButtons, IonButton } from '@ionic/angular/standalone';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonToggle, IonIcon, IonButtons, IonButton, IonInput } from '@ionic/angular/standalone';
 import { TaskService } from 'src/app/services/task.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Tache } from 'src/app/model/tache';
 
 @Component({
   selector: 'app-form-add',
   templateUrl: './form-add.page.html',
   styleUrls: ['./form-add.page.scss'],
   standalone: true,
-  imports: [IonButton, IonButtons, IonIcon, IonToggle, IonLabel, IonItem, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule,]
+  imports: [IonInput, IonButton, IonButtons, IonIcon, IonToggle, IonLabel, IonItem, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule,]
 })
 export class FormAddPage implements OnInit {
 
-  taskForm: FormGroup;
-  taskId: number | null = null;
+  tache: Tache = {} as Tache;
+  formTask!: FormGroup;
+  isEditMode: boolean = false;
+  successMessage: string = '';
+  errorMessage: string = '';
 
-  ngOnInit() { }
+  constructor( 
+    private taskService: TaskService,
+    private fb: FormBuilder, 
+    private route: ActivatedRoute,
+    private router: Router
+  ) {  }
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private taskService: TaskService, 
-    @Inject('taskId') taskId: number | null
-  ) {
-    this.taskId = taskId;
-    this.taskForm = this.formBuilder.group({
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.isEditMode = true;
+      this.loadTacheById(+id);
+    }
+
+    this.formTask = this.fb.group({
       title: ['', Validators.required],
-      description: [''],
-      completed: [false]
+      description: ['']
     });
 
-    if (this.taskId) {
-      this.loadTask(this.taskId);
-    }
-  }
+   }
 
-  loadTask(id: number) {
-    this.taskService.getTacheById(id).subscribe(task => { 
+   loadTacheById(id: number): void {
+    this.taskService.getTacheById(id).subscribe(data => {
+      this.tache = data; 
+    }, error => {
+      console.error('Erreur lors du chargement de des tâches :', error);
+      this.errorMessage = 'Erreur lors du chargement de des tâches.';
+      setTimeout(() => this.errorMessage = '', 2000);
     });
   }
 
   onSubmit() {
-    if (this.taskForm.valid) {
-      const formValue = this.taskForm.value;
-
-      if (this.taskId) {
-        this.taskService.updateTache(this.taskId, formValue).subscribe(() => { 
-        });
-      } else {
-        this.taskService.createTache(formValue).subscribe(() => { 
-        });
-      }
+    if (this.formTask.valid) {
+      const newTache: Tache = this.formTask.value;
+      this.taskService.createTache(newTache).subscribe(
+        response => {
+          console.log('Tâche créé avec succès', response);
+          this.successMessage = 'Tâche créé avec succès.';
+          this.router.navigate(['/task']);
+          setTimeout(() => this.successMessage = '', 2000);
+        },
+        error => {
+          console.error('Erreur lors de la création de la tâche', error);
+          this.successMessage = 'Erreur lors de la création de la tâche.';
+          setTimeout(() => this.errorMessage = '', 2000);
+        }
+      );
     }
-  } 
+  }
+
 }

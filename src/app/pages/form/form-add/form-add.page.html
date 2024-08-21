@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ taskId ? 'Modifier Tâche' : 'Ajouter Tâche' }}</ion-title>
+    <ion-title>{{ isEditMode ? 'Modifier Tâche' : 'Ajouter Tâche' }}</ion-title>
     <ion-buttons slot="end">
       <!-- <ion-button (click)="dismiss()">Fermer</ion-button> -->
     </ion-buttons>
@@ -8,10 +8,13 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+  <form [formGroup]="formTask" (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="floating">Titre</ion-label>
-      <ion-input formControlName="title"></ion-input>
+      <ion-input  formControlName="title" required></ion-input>
     </ion-item>
 
     <ion-item>
@@ -19,11 +22,6 @@
       <ion-input formControlName="description"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label>Complétée</ion-label>
-      <ion-toggle formControlName="completed"></ion-toggle>
-    </ion-item>
-
-    <ion-button expand="full" type="submit">{{ taskId ? 'Modifier' : 'Ajouter' }}</ion-button>
+    <ion-button expand="full" type="submit" [disabled]="!formTask.valid">{{ isEditMode ? 'Modifier' : 'Ajouter' }}</ion-button>
   </form>
 </ion-content>

@@ -1,12 +1,31 @@
-ion-header{
-    ion-toolbar{
-        --background: #251D73; 
-        ion-title{
-            color: #ccc;
-            text-align: center;
+ion-header {
+    ion-toolbar {
+      --background: #251D73;
+      
+      ion-title {
+        color: #ccc; 
+        font-weight: bold;
+      }
+  
+      .btnAdd {
+        ion-button {
+          --background: transparent;
+          --border-radius: 4px;
+          --padding-start: 10px;
+          --padding-end: 10px;
+          display: flex;
+          align-items: center; 
+  
+          ion-icon {
+            margin-left: 5px;
+          }
+          border: 2px solid #ccc;
+           border-radius: 20px;
         }
-    } 
-}
+      }
+    }
+  }
+  
 
 ion-content{
     ion-segment{

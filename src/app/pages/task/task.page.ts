@@ -2,25 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonBadge, IonSegment, IonLabel, IonSegmentButton } from '@ionic/angular/standalone'; 
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, IonBadge, IonSegment, IonLabel, IonSegmentButton, IonButton } from '@ionic/angular/standalone'; 
 import { Tache } from 'src/app/model/tache';
 import { TaskService } from 'src/app/services/task.service'; 
 import { FormAddPage } from '../form/form-add/form-add.page';
 import { PopoverPage } from '../popover/popover.page';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.page.html',
   styleUrls: ['./task.page.scss'],
   standalone: true,
-  imports: [IonSegmentButton, IonLabel, IonSegment, IonBadge, IonIcon, IonBackButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule],
+  imports: [IonButton, IonSegmentButton, IonLabel, IonSegment, IonBadge, IonIcon, IonBackButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule],
   providers: [PopoverController]
 })
 export class TaskPage implements OnInit {
 
   taches: Tache[] = []; 
 
-  constructor(public popoverController: PopoverController, private taskService: TaskService) { } 
+  constructor(public popoverController: PopoverController, private taskService: TaskService, private navCtrl: NavController) { } 
 
   ngOnInit() {
     this.taskService.getTaches().subscribe((data: Tache[]) => {
@@ -45,4 +46,7 @@ export class TaskPage implements OnInit {
     await popover.present();
   }
 
+  navigateToFormAddPage() {
+    this.navCtrl.navigateForward('/form-add');
+  }
 }
